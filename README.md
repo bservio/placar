@@ -1,50 +1,102 @@
-# Welcome to your Expo app 👋
+# 🏐 Placar - Seu Marcador de Vôlei Pessoal
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um aplicativo de placar para vôlei desenvolvido com React Native e Expo. Perfeito para suas partidas de praia, quadra ou até mesmo aquela pelada no final de semana! 🏖️
 
-## Get started
+## 🎯 Sobre o App
 
-1. Install dependencies
+O **Placar** é um aplicativo simples, intuitivo e cheio de estilo para marcar seus jogos de vôlei. Com uma interface limpa e cores vibrantes, você pode acompanhar a pontuação de dois times, controlar sets e até mesmo cronometrar sua partida - tudo isso com feedback háptico para uma experiência mais imersiva! 📱
 
+## ⚡ Funcionalidades
+
+### 🎮 Sistema de Pontuação Inteligente
+O app implementa as **regras oficiais do vôlei** de forma automática:
+- **Regra dos 2 pontos de vantagem**: Quando ambos os times chegam perto do placar máximo (ex: 11-11 com maxScore de 12), o jogo só termina quando um time consegue abrir **2 pontos de vantagem** sobre o adversário. Isso significa que a partida pode continuar até 13-11, 14-12, 15-13... até que alguém consiga essa vantagem! 🏆
+
+### 📊 Recursos Principais
+- ✅ **Placar em tempo real** para dois times (Time A e Time B)
+- ✅ **Contador de sets** com controles de incremento/decremento
+- ✅ **Cronômetro** com play/pause
+- ✅ **Escolha de pontuação máxima**: 12, 15, 21 pontos ou um valor customizado
+- ✅ **Feedback háptico** ao marcar pontos (vibração no dispositivo)
+- ✅ **Tela de vitória** com estatísticas finais
+- ✅ **Interface dividida** por cores para fácil identificação dos times
+
+### 🎨 Interface
+- Design moderno com tema escuro
+- Cores vibrantes para cada time (Laranja e Amarelo)
+- Números grandes e fáceis de ler
+- Controles intuitivos com toque simples e toque longo
+
+## 🚀 Como Usar
+
+1. **Inicie o jogo**: Escolha a pontuação máxima (12, 15, 21 ou "Outros" para um valor customizado)
+2. **Marque pontos**: Toque na área do time para adicionar um ponto, ou mantenha pressionado para remover
+3. **Controle os sets**: Use os botões +/- acima do placar para gerenciar os sets
+4. **Cronômetro**: Toque no cronômetro no topo para iniciar/pausar
+5. **Vitória**: Quando um time vencer, uma tela especial aparecerá com as estatísticas!
+
+## 🛠️ Como Rodar o Projeto
+
+### Pré-requisitos
+- Node.js instalado
+- Expo CLI (ou Expo Go no seu celular)
+
+### Instalação
+
+1. **Instale as dependências**
    ```bash
    npm install
    ```
 
-2. Start the app
-
+2. **Inicie o servidor de desenvolvimento**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Escolha como rodar**
+   - Pressione `a` para abrir no Android
+   - Pressione `i` para abrir no iOS
+   - Escaneie o QR code com o app Expo Go no seu celular
+   - Pressione `w` para abrir no navegador
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📱 Tecnologias Utilizadas
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **React Native** - Framework para desenvolvimento mobile
+- **Expo** - Plataforma para desenvolvimento React Native
+- **TypeScript** - Tipagem estática para JavaScript
+- **Expo Haptics** - Feedback háptico no dispositivo
+- **Expo Router** - Roteamento baseado em arquivos
 
-## Get a fresh project
+## 🎯 Regras de Pontuação Implementadas
 
-When you're ready, run:
+O sistema segue as regras oficiais do vôlei:
 
-```bash
-npm run reset-project
-```
+- Um time vence quando:
+  1. Atinge ou ultrapassa a pontuação máxima configurada (maxScore)
+  2. **E** tem pelo menos 2 pontos de vantagem sobre o adversário
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Exemplo prático:**
+- Com maxScore = 12 e placar em 11-11, o jogo continua
+- O jogo só termina quando um time consegue 2 pontos de vantagem (ex: 13-11, 14-12, etc.)
 
-## Learn more
+Isso garante que não há empate e que sempre há um vencedor claro! 🏅
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🎮 Controles
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- **Toque simples** na área do time: Adiciona 1 ponto
+- **Toque longo** na área do time: Remove 1 ponto
+- **Botões +/- nos sets**: Incrementa ou decrementa os sets
+- **Cronômetro**: Toque para iniciar/pausar
+- **Botão de reset**: Reinicia toda a partida (com confirmação)
 
-## Join the community
+## 📝 Notas
 
-Join our community of developers creating universal apps.
+Este projeto foi criado com [`create-expo-app`](https://www.npmjs.com/package/create-expo-app) e usa [Expo Router](https://docs.expo.dev/router/introduction/) para navegação.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🤝 Contribuindo
+
+Sinta-se à vontade para abrir issues ou pull requests! Toda contribuição é bem-vinda! 🎉
+
+---
+
+**Divirta-se marcando seus jogos!** 🏐✨
