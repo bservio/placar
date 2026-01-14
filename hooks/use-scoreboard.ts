@@ -30,6 +30,20 @@ export function useScoreboard() {
     };
   }, [isActive]);
 
+  useEffect(() => {
+    if (winner) return;
+
+    if (scoreA >= maxScore && (scoreA - scoreB) >= 2) {
+      setWinner('A');
+      setIsActive(false);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } else if (scoreB >= maxScore && (scoreB - scoreA) >= 2) {
+      setWinner('B');
+      setIsActive(false);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    }
+  }, [scoreA, scoreB, maxScore, winner]);
+
   const formatTime = (totalSeconds: number) => {
     const mins = Math.floor(totalSeconds / 60);
     const secs = totalSeconds % 60;
@@ -46,25 +60,9 @@ export function useScoreboard() {
     }
 
     if (team === 'A') {
-      setScoreA((prev) => {
-        const newScore = Math.max(0, increment ? prev + 1 : prev - 1);
-        if (increment && newScore === maxScore) {
-          setWinner('A');
-          setIsActive(false);
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        }
-        return newScore;
-      });
+      setScoreA((prev) => Math.max(0, increment ? prev + 1 : prev - 1));
     } else {
-      setScoreB((prev) => {
-        const newScore = Math.max(0, increment ? prev + 1 : prev - 1);
-        if (increment && newScore === maxScore) {
-          setWinner('B');
-          setIsActive(false);
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        }
-        return newScore;
-      });
+      setScoreB((prev) => Math.max(0, increment ? prev + 1 : prev - 1));
     }
   };
 
