@@ -1,7 +1,7 @@
 import { useScoreboard } from '@/hooks/use-scoreboard';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const COLORS = {
   teamA: '#FF8C00', // Laranja
@@ -31,6 +31,9 @@ export default function ScoreboardScreen() {
     playAgain,
   } = useScoreboard();
 
+  const [showCustomModal, setShowCustomModal] = React.useState(false);
+  const [customScore, setCustomScore] = React.useState('');
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden />
@@ -51,8 +54,60 @@ export default function ScoreboardScreen() {
               </TouchableOpacity>
             ))}
           </View>
+          <TouchableOpacity 
+            style={styles.othersButton} 
+            onPress={() => setShowCustomModal(true)}
+          >
+            <Text style={styles.othersButtonText}>Outros</Text>
+          </TouchableOpacity>
         </View>
       )}
+
+      <Modal
+        visible={showCustomModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowCustomModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Digite o valor</Text>
+            <TextInput
+              style={styles.modalInput}
+              value={customScore}
+              onChangeText={setCustomScore}
+              keyboardType="numeric"
+              placeholder="Ex: 25"
+              placeholderTextColor="rgba(255,255,255,0.5)"
+              autoFocus={true}
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalButtonCancel]}
+                onPress={() => {
+                  setShowCustomModal(false);
+                  setCustomScore('');
+                }}
+              >
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalButtonConfirm]}
+                onPress={() => {
+                  const score = parseInt(customScore, 10);
+                  if (score && score > 0) {
+                    startGame(score);
+                    setShowCustomModal(false);
+                    setCustomScore('');
+                  }
+                }}
+              >
+                <Text style={styles.modalButtonText}>Confirmar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
 
       {winner && (
         <View style={[styles.winnerOverlay, { backgroundColor: winner === 'A' ? COLORS.teamA : COLORS.teamB }]}>
@@ -294,6 +349,77 @@ const styles = StyleSheet.create({
   optionText: {
     color: COLORS.text,
     fontSize: 20,
+    fontWeight: 'bold',
+  },
+  othersButton: {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 25,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.2)',
+    alignSelf: 'center',
+  },
+  othersButtonText: {
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: COLORS.background,
+    borderRadius: 20,
+    padding: 30,
+    width: '80%',
+    maxWidth: 350,
+    borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.2)',
+  },
+  modalTitle: {
+    color: COLORS.text,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  modalInput: {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 10,
+    padding: 15,
+    color: COLORS.text,
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'space-between',
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalButtonCancel: {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+  },
+  modalButtonConfirm: {
+    backgroundColor: COLORS.text,
+  },
+  modalButtonText: {
+    fontSize: 16,
     fontWeight: 'bold',
   },
   winnerOverlay: {
